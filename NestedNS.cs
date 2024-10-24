@@ -1,5 +1,9 @@
 // A skeleton of a C# program
 using System;
+using BimboB2B.CrossDomain;
+using BimboB2B.Model.Models;
+using BimboB2B.Model.Models.DTO;
+using BimboB2B.Model.Utils;
 namespace ParentNamespace
 {
     class Program

@@ -35,6 +35,10 @@ namespace ParentNamespace
             Console.WriteLine($"Hello world! My name is {name} and I am {age} years old.");
         }
     }
+    public interface ILoadData
+    {
+        void LoadDataLayer(DataSet ds, string cIDCompany, int cIDImport, out string errorMessage, string origemPedido);
+    }
     public class LoadDataFactory
     {
         public const string DINADEL = "DINADEL";

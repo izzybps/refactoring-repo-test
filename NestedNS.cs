@@ -35,4 +35,27 @@ namespace ParentNamespace
             Console.WriteLine($"Hello world! My name is {name} and I am {age} years old.");
         }
     }
+    public class LoadDataFactory
+    {
+        public const string DINADEL = "DINADEL";
+        public const string B2B = "B2B";
+        public const string B2BNC = "B2BNC";
+
+        private static readonly Dictionary<string, Func<EFContext, EFContextBO, ILoadData>> dataLoaders =
+            new Dictionary<string, Func<EFContext, EFContextBO, ILoadData>>(StringComparer.OrdinalIgnoreCase)
+            {
+                { DINADEL, (context, contextBO) => new LoadDataDinadel(context, contextBO) },
+                { B2B, (context, contextBO) => new LoadDataB2B(context, contextBO) },
+                { B2BNC, (context, contextBO) => new LoadDataB2BNC(context, contextBO) }
+            };
+
+        public static ILoadData Build(string origin, EFContext context, EFContextBO contextBO)
+        {
+            if (dataLoaders.TryGetValue(origin, out var loader))
+            {
+                return loader(context, contextBO);
+            }
+            return null;
+        }
+    }
 }
